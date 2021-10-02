@@ -1,0 +1,7 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>Ludum dare 49</AssemblyName>
+    <RootNamespace>Ludumdare49</RootNamespace>
+  </PropertyGroup>
+</Project>

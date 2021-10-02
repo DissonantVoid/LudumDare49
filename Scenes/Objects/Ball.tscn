@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Resources/Textures/Ball.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Objects/Ball.cs" type="Script" id=2]
+
+[sub_resource type="PhysicsMaterial" id=2]
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 192, 32, 32, 32 ), Rect2( 192, 0, 32, 32 ), Rect2( 160, 0, 32, 32 ), Rect2( 128, 0, 32, 32 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Glow", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Dissapear"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 128, 0, 32, 32 ), Rect2( 160, 0, 32, 32 ), Rect2( 192, 0, 32, 32 ), Rect2( 192, 32, 32, 32 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 32, 32, 32 ), Rect2( 32, 32, 32, 32 ), Rect2( 64, 32, 32, 32 ), Rect2( 0, 64, 64, 64 ), Rect2( 64, 64, 64, 64 ), Rect2( 128, 64, 64, 64 ), Rect2( 0, 128, 64, 64 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 0, 32, 32 ), Rect2( 32, 0, 32, 32 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 16.0
+
+[node name="Ball" type="RigidBody2D"]
+mass = 6.0
+physics_material_override = SubResource( 2 )
+gravity_scale = 0.0
+contacts_reported = 10
+contact_monitor = true
+script = ExtResource( 2 )
+
+[node name="Ball" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ball"]
+autoplay = "Glow"
+anims/Apear = SubResource( 7 )
+anims/Dissapear = SubResource( 3 )
+anims/Explode = SubResource( 4 )
+anims/Glow = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 6 )
+[connection signal="body_shape_entered" from="." to="." method="onBodyShapeEntered"]
+[connection signal="animation_finished" from="Ball/AnimationPlayer" to="." method="onAnimatorAnimationFinished"]
