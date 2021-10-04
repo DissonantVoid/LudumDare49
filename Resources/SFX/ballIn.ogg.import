@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ballIn.ogg-2ba4f73c314cb79405b28e7ad83fd3d5.oggstr"
+
+[deps]
+
+source_file="res://Resources/SFX/ballIn.ogg"
+dest_files=[ "res://.import/ballIn.ogg-2ba4f73c314cb79405b28e7ad83fd3d5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

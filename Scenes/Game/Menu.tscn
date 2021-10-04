@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/Game/Menu.cs" type="Script" id=1]
 [ext_resource path="res://Resources/Textures/Menu.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Textures/Magnet.png" type="Texture" id=3]
 [ext_resource path="res://Resources/Textures/Ball.png" type="Texture" id=4]
 [ext_resource path="res://Resources/Textures/MagnetEffect.png" type="Texture" id=5]
+[ext_resource path="res://Resources/SFX/press.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Resources/Textures/Container.png" type="Texture" id=7]
 [ext_resource path="res://Resources/Fonts/FFFFORWA.TTF" type="DynamicFontData" id=9]
 [ext_resource path="res://Resources/Textures/PlayButton.png" type="Texture" id=10]
@@ -12,7 +13,7 @@
 [ext_resource path="res://Resources/Textures/Godot.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=1]
-size = 7
+size = 9
 outline_size = 1
 font_data = ExtResource( 9 )
 
@@ -134,15 +135,16 @@ region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="Label2" type="Label" parent="."]
 margin_left = -3.0
-margin_top = 120.0
+margin_top = 114.0
 margin_right = 193.0
-margin_bottom = 159.0
+margin_bottom = 179.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.239216, 0.239216, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "Warning: The nuclear ball is unstable,
-please use a proper magnet to move it
-to a safe container"
+text = "Warning: The nuclear ball is
+unstable,please use a proper
+magnet to move it to a
+safe container"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -212,5 +214,10 @@ spread = 0.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 5.0
 anim_speed = 1.0
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Press" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 6 )
 [connection signal="animation_finished" from="CanvasLayer/Button2/AnimationPlayer" to="." method="onAnimationFinished"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="onButtonPressed"]

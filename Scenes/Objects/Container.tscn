@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/Textures/Container.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Container.cs" type="Script" id=2]
+[ext_resource path="res://Resources/SFX/ballIn.ogg" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Closing"
@@ -44,7 +45,7 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 64, 64 )
+region_rect = Rect2( 64, 0, 64, 64 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Off"
@@ -53,4 +54,11 @@ anims/Off = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="In" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 3 )
+volume_db = -5.0
 [connection signal="body_entered" from="." to="." method="onBodyEntered"]
+[connection signal="animation_finished" from="Sprite/AnimationPlayer" to="." method="onAnimationDone"]

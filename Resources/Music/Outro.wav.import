@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Outro.wav-4ee13995e88ebc03520990418e7eec6a.sample"
+
+[deps]
+
+source_file="res://Resources/Music/Outro.wav"
+dest_files=[ "res://.import/Outro.wav-4ee13995e88ebc03520990418e7eec6a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

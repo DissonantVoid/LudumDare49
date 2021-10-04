@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/Textures/LazerGun.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/LazerGun.cs" type="Script" id=2]
+[ext_resource path="res://Resources/SFX/lazer.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 29, 20 )
@@ -86,6 +87,7 @@ one_shot = true
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 0, -35 )
 cast_to = Vector2( 0, -50 )
+collision_mask = 2
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
@@ -97,12 +99,19 @@ default_color = Color( 1, 0, 0, 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 64, 96 )
+region_rect = Rect2( 64, 0, 64, 96 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "off"
 anims/AboutToShoot = SubResource( 4 )
 anims/Shooting = SubResource( 5 )
 anims/off = SubResource( 6 )
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 3 )
+volume_db = -10.0
+max_distance = 600.0
 [connection signal="timeout" from="ShootingTimer" to="." method="onShootingTimerTimeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="onIdleTimerTimeout"]

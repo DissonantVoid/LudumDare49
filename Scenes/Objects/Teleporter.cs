@@ -5,6 +5,8 @@ public class Teleporter : Area2D
 {
     private Sprite indicatorSprite;
     private SceneManager sceneManager;
+    private AudioStreamPlayer teleportInSfx;
+    private AudioStreamPlayer teleportOutSfx;
 
     [Export(PropertyHint.Enum,"red,blue,gree,yellow")] //red,blue,green,yellow
     private int type;
@@ -18,7 +20,9 @@ public class Teleporter : Area2D
     {
         sceneManager = GetNode<SceneManager>("/root/SceneManager");
         indicatorSprite = GetNode<Sprite>("IndicatorSprite");
-        otherPair = GetNode<Teleporter>(otherPairRef);
+        teleportInSfx = GetNode<AudioStreamPlayer>("Audio/TeleportIn");
+        teleportOutSfx = GetNode<AudioStreamPlayer>("Audio/TeleportOut");
+        if(otherPairRef != null) otherPair = GetNode<Teleporter>(otherPairRef);
 
         switch (type)
         {
@@ -31,21 +35,21 @@ public class Teleporter : Area2D
 
     public override void _Process(float delta)
     {
-        if(isBallInside && canTeleport)
+        if(otherPair != null && isBallInside && canTeleport)
         {
-            if(GlobalPosition.DistanceTo(sceneManager.currentBall.GlobalPosition) <= 6
-                )
+            if(GlobalPosition.DistanceTo(sceneManager.currentBall.GlobalPosition) <= 8)
             {
                 otherPair.canTeleport = false;
+                sceneManager.currentBall.teleportTo(otherPair);
                 isBallInside = false;
-                sceneManager.currentBall.teleportTo(otherPair.GlobalPosition);
+                teleportInSfx.Play();
             }
         }
     }
 
     private void onBodyEntered(Node2D body)
     {
-        if(body is Ball)
+        if (body is Ball)
             isBallInside = true;
     }
 
@@ -56,5 +60,10 @@ public class Teleporter : Area2D
             isBallInside = false;
             if (canTeleport == false) canTeleport = true;
         }
+    }
+
+    public void onTeleportTo()
+    {
+        teleportOutSfx.Play();
     }
 }

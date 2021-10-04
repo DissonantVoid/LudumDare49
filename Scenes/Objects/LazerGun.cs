@@ -8,7 +8,9 @@ public class LazerGun : StaticBody2D
     private Line2D lazerLine;
     private Timer shootingTimer;
     private Timer idleTimer;
+    private AudioStreamPlayer2D lazerSFX;
 
+    [Export] private bool shootOnSpawn;
     [Export] private float shootingTime;
     [Export] private float idleTime;
     [Export] private float lenght = 80;
@@ -22,13 +24,15 @@ public class LazerGun : StaticBody2D
         lazerLine = GetNode<Line2D>("Line2D");
         shootingTimer = GetNode<Timer>("ShootingTimer");
         idleTimer = GetNode<Timer>("IdleTimer");
+        lazerSFX = GetNode<AudioStreamPlayer2D>("Audio/Shoot");
 
         shootingTimer.WaitTime = shootingTime;
         idleTimer.WaitTime = idleTime;
         ray.CastTo = new Vector2(0,-lenght);
         lazerLine.SetPointPosition(1, new Vector2(0, -lenght));
 
-        idleTimer.Start();
+        if (shootOnSpawn) onIdleTimerTimeout();
+        else idleTimer.Start();
     }
 
     public override void _Process(float delta)
@@ -50,6 +54,7 @@ public class LazerGun : StaticBody2D
         isLazerOn = false;
         ray.Enabled = false;
         lazerLine.Hide();
+        lazerSFX.Stop();
     }
 
     private void onIdleTimerTimeout()
@@ -59,5 +64,6 @@ public class LazerGun : StaticBody2D
         isLazerOn = true;
         ray.Enabled = true;
         lazerLine.Show();
+        lazerSFX.Play();
     }
 }

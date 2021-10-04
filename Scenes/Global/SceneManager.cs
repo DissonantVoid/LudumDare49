@@ -20,7 +20,7 @@ public class SceneManager : CanvasLayer
                                                 {6,"res://Scenes/Game/Levels/Level7.tscn"},
                                                 {7,"res://Scenes/Game/Levels/Level8.tscn"},
                                                 {8,"res://Scenes/Game/Levels/Level9.tscn"},
-                                                {9,"res://Scenes/Game/Levels/Level10.tscn"},
+                                                {9,"res://Scenes/Game/End.tscn"},
                                             };
     private int currentSceneIndex = -1;
 
